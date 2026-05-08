@@ -14,38 +14,41 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+
 @RestController
 @RequestMapping("/pagamentos")
 public class PagamentoController {
+
     @Autowired
     private PagamentoService service;
 
     @GetMapping
-    public Page<PagamentoDto> listar(@PageableDefault(size = 10) Pageable paginacao){
+    public Page<PagamentoDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
         return service.obterTodos(paginacao);
     }
 
-    @GetMapping
-    public ResponseEntity<PagamentoDto> detalhar(@PathVariable @NotNull Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<PagamentoDto> detalhar(@PathVariable @NotNull Long id) {
         PagamentoDto dto = service.obterPorId(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<PagamentoDto> cadastrar(@RequestBody @Valid PagamentoDto dto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<PagamentoDto> cadastrar(@RequestBody @Valid PagamentoDto dto, UriComponentsBuilder uriBuilder) {
         PagamentoDto pagamento = service.criar(dto);
         URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(pagamento.getId()).toUri();
+
         return ResponseEntity.created(endereco).body(pagamento);
     }
 
-    @PutMapping
-    public ResponseEntity<PagamentoDto> atualizar(@PathVariable @NotNull Long id, @RequestBody @Valid PagamentoDto dto){
+    @PutMapping("/{id}")
+    public ResponseEntity<PagamentoDto> atualizar(@PathVariable @NotNull Long id, @RequestBody @Valid PagamentoDto dto) {
         PagamentoDto atualizado = service.atualizar(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> remover(@PathVariable @NotNull Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PagamentoDto> remover(@PathVariable @NotNull Long id) {
         service.excluirPagamento(id);
         return ResponseEntity.noContent().build();
     }

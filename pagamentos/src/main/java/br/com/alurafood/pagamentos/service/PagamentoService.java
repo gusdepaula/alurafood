@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import br.com.alurafood.pagamentos.model.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-// remover: import java.awt.print.Pageable;
 
 @Service
 public class PagamentoService {

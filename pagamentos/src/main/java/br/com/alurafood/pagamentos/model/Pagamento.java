@@ -50,6 +50,7 @@ public class Pagamento {
     private Long pedidoId;
 
     @NotNull
+    @Column(name = "forma_de_pagamento_id")
     private Long formaDePagamento;
 
 }
