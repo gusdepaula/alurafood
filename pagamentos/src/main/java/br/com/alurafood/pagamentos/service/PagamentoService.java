@@ -8,7 +8,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
+import br.com.alurafood.pagamentos.model.Status;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+// remover: import java.awt.print.Pageable;
 
 @Service
 public class PagamentoService {
@@ -47,7 +50,7 @@ public class PagamentoService {
         return modelMapper.map(pagamento, PagamentoDto.class);
     }
 
-    public PagamentoDto excluirPagamento(Long id) {
+    public void excluirPagamento(Long id) {
         repository.deleteById(id);
     }
 

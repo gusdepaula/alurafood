@@ -1,7 +1,6 @@
 package br.com.alurafood.pagamentos.controller;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
-import br.com.alurafood.pagamentos.model.Pagamento;
 import br.com.alurafood.pagamentos.service.PagamentoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +33,7 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<PagamentoDto> cadastrar(@RequestBody @Valid PagamentoDto dto, UriComponentsBuilder uriBuilder){
-        Pagamento pagamento = service.criar(dto);
+        PagamentoDto pagamento = service.criar(dto);
         URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(pagamento.getId()).toUri();
         return ResponseEntity.created(endereco).body(pagamento);
     }
