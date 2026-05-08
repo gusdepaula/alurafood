@@ -50,5 +50,5 @@ public class PagamentoService {
     public PagamentoDto excluirPagamento(Long id) {
         repository.deleteById(id);
     }
-    
+
 }
