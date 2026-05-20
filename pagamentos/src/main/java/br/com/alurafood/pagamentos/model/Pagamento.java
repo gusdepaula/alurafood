@@ -1,23 +1,16 @@
 package br.com.alurafood.pagamentos.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "pagamentos")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Pagamento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,20 +19,20 @@ public class Pagamento {
     @Positive
     private BigDecimal valor;
 
-    @NotNull
-    @Size(max = 100)
+    @NotBlank
+    @Size(max=100)
     private String nome;
 
-    @NotNull
-    @Size(max = 19)
+    @NotBlank
+    @Size(max=19)
     private String numero;
 
-    @NotNull
-    @Size(max = 7)
+    @NotBlank
+    @Size(max=7)
     private String expiracao;
 
-    @NotNull
-    @Size(min = 3, max = 3)
+    @NotBlank
+    @Size(min=3, max=3)
     private String codigo;
 
     @NotNull
@@ -50,7 +43,40 @@ public class Pagamento {
     private Long pedidoId;
 
     @NotNull
-    @Column(name = "forma_de_pagamento_id")
-    private Long formaDePagamento;
+    private Long formaDePagamentoId;
 
+    public Pagamento() {}
+
+    public Pagamento(Long id, BigDecimal valor, String nome, String numero, String expiracao, String codigo, Status status, Long pedidoId, Long formaDePagamentoId) {
+        this.id = id; this.valor = valor; this.nome = nome; this.numero = numero;
+        this.expiracao = expiracao; this.codigo = codigo; this.status = status;
+        this.pedidoId = pedidoId; this.formaDePagamentoId = formaDePagamentoId;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public BigDecimal getValor() { return valor; }
+    public void setValor(BigDecimal valor) { this.valor = valor; }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+
+    public String getNumero() { return numero; }
+    public void setNumero(String numero) { this.numero = numero; }
+
+    public String getExpiracao() { return expiracao; }
+    public void setExpiracao(String expiracao) { this.expiracao = expiracao; }
+
+    public String getCodigo() { return codigo; }
+    public void setCodigo(String codigo) { this.codigo = codigo; }
+
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
+
+    public Long getPedidoId() { return pedidoId; }
+    public void setPedidoId(Long pedidoId) { this.pedidoId = pedidoId; }
+
+    public Long getFormaDePagamentoId() { return formaDePagamentoId; }
+    public void setFormaDePagamentoId(Long formaDePagamentoId) { this.formaDePagamentoId = formaDePagamentoId; }
 }
